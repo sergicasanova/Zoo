@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="zoo_menu_root" name="Zoo">
+        <menuitem id="zoo_gestion_menu_action" action="zoo_action" name="Gestion Zoo"> 
+            <menuitem id="zoo_menu_action" action="zoo_action" name="Zoo"/>
+            <menuitem id="zoo_animal_menu_action" action="zoo_animal_action" name="Animal"/>
+        </menuitem>
+
+        <menuitem id="zoo_settings_menu" name="Settings">
+            <menuitem id="zoo_habitat_menu_action" action="zoo_habitat_action" name="Habitat"/>
+            <menuitem id="zoo_especie_menu_action" action="zoo_especie_action" name="Especie"/>
+        </menuitem>
+    </menuitem>
+</odoo>
