@@ -5,13 +5,14 @@ class ZooAnimal(models.Model):
     _description = 'Animal'
 
     raza = fields.Char(string='Raza', required=True)
+    name = fields.Char(string='Nombre', required=True)
     continente_origen_animal = fields.Selection(
         [('africa', 'Africa'), 
          ('america', 'America'), 
          ('asia', 'Asia'), 
          ('europa', 'Europa'), 
          ('oceania', 'Oceania')], string='Continente de Origen')
-    pais_origen_animal = fields.Many2one('res.country', string='Pais de Origen')
+    pais_id = fields.Many2one('res.country', string='Pais de Origen')
     sexo = fields.Selection([('macho', 'Macho'), ('hembra', 'Hembra')], string='Sexo')
     fecha_nacimiento = fields.Date(string='Fecha Nacimiento')
     edad = fields.Integer(string='Edad', compute='_compute_edad')
@@ -34,7 +35,6 @@ class ZooAnimal(models.Model):
     # hacer un sql-constraint para que la fecha de nacimiento no sea mayor a la fecha actual
 
     _sql_constraints = [
-        ('name_uniq', 'unique(raza)', 'La raza del animal debe ser unica!'),
         ('fecha_nacimiento', 'CHECK(fecha_nacimiento <= CURRENT_DATE)', 'La fecha de nacimiento no puede ser mayor a la fecha actual!'),
         ('sexo', 'CHECK(sexo IN (\'macho\', \'hembra\'))', 'El sexo debe ser macho o hembra!'),
     ]
@@ -44,4 +44,15 @@ class ZooAnimal(models.Model):
         for animal in self:
             if animal.fecha_nacimiento:
                 edad = (fields.Date.today() - animal.fecha_nacimiento).days / 365
-                animal.edad = edad
+                animal.edad = round(edad)
+            else:
+                animal.edad = 0
+
+
+    @api.model
+    def create(self, vals):
+        record = super(ZooAnimal, self).create(vals)
+        record.zoo_id._compute_cantidad_animales()
+        return record
+
+

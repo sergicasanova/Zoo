@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zoo_animal_action" model="ir.actions.act_window">
+        <field name="name">Animal</field>
+        <field name="res_model">zoo.animal</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="zoo_animal_tree_view" model="ir.ui.view">
+        <field name="name">zoo.animal.tree</field>
+        <field name="model">zoo.animal</field>
+        <field name="arch" type="xml">
+            <tree string="Animal">
+                <field name="name"/>
+                <field name="raza"/>
+                <field name="especie"/>
+                <field name="continente_origen_animal"/>
+                <field name="pais_id"/>
+                <field name="sexo"/>
+                <field name="fecha_nacimiento"/>
+                <field name="edad"/>
+                <field name="dieta"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zoo_animal_view_form" model="ir.ui.view">
+        <field name="name">zoo.animal.form</field>
+        <field name="model">zoo.animal</field>
+        <field name="arch" type="xml">
+            <form string="Animal">
+                <sheet>
+                    <group>
+                        <field name="zoo_id"/>
+                        <field name="name"/>
+                        <field name="raza"/>
+                        <field name="continente_origen_animal"/>
+                        <field name="pais_id"/>
+                        <field name="sexo"/>
+                        <field name="fecha_nacimiento"/>
+                        <field name="edad"/>
+                        <field name="descripcion"/>
+                        <field name="enfermo"/>
+                        <field name="tipo_de_enfermedad"/>
+                        <field name="dieta"/>
+                        <field name="especie"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

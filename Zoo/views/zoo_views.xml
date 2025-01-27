@@ -5,4 +5,38 @@
         <field name="res_model">zoo.zoo</field>
         <field name="view_mode">list,form</field>
     </record>
+
+    <record id="zoo_zoo_tree_view" model="ir.ui.view">
+        <field name="name">zoo.zoo.tree</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <tree string="Zoo">
+                <field name="name"/>
+                <field name="extension"/>
+                <field name="pais_id"/>
+                <field name="provincia_id"/>
+                <field name="cantidad_animales"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zoo_zoo_view_form" model="ir.ui.view">
+        <field name="name">zoo.zoo.form</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <form string="Zoo">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="extension"/>
+                        <field name="pais_id"/>
+                        <field name="provincia_id"/>
+                        <field name="ciudad"/>
+                        <field name="codigo_postal"/>
+                        <field name="cantidad_animales"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>

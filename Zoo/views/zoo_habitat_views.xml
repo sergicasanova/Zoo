@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zoo_habitat_action" model="ir.actions.act_window">
+        <field name="name">Habitat</field>
+        <field name="res_model">zoo.habitat</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="zoo_habitat_tree_view" model="ir.ui.view">
+        <field name="name">zoo.habitat.tree</field>
+        <field name="model">zoo.habitat</field>
+        <field name="arch" type="xml">
+            <tree string="Habitat">
+                <field name="name" string="Habitat"/>
+                <field name="descripcion"/>
+                <field name="tipo_habitat"/>
+                <field name="capacidad"/>
+                <field name="superficie"/>
+                <field name="humedad" widget="float" string="Humedad (%)"/>
+                <field name="temperatura" widget="float" string="Temperatura (°C)"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zoo_habitat_form_view" model="ir.ui.view">
+        <field name="name">zoo.habitat.form</field>
+        <field name="model">zoo.habitat</field>
+        <field name="arch" type="xml">
+            <form string="Habitat">
+                <sheet>
+                    <group>
+                        <field name="name" string="Habitat"/>
+                        <field name="descripcion"/>
+                        <field name="tipo_habitat"/>
+                        <field name="capacidad"/>
+                        <field name="superficie"/>
+                        <field name="humedad" widget="float" string="Humedad (%)"/>
+                        <field name="temperatura" widget="float" string="Temperatura (°C)"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

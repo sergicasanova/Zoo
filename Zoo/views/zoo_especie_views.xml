@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zoo_especie_action" model="ir.actions.act_window">
+        <field name="name">Especies</field>
+        <field name="res_model">zoo.animal.especie</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="zoo_esoecie_tree_view" model="ir.ui.view">
+        <field name="name">zoo.animal.especie.tree</field>
+        <field name="model">zoo.animal.especie</field>
+        <field name="arch" type="xml">
+            <tree string="Especies">
+                <field name="name" string="Especie"/>
+                <field name="en_peligro" string="En Peligro"/>
+                <field name="familia" string="Familia"/>
+                <field name="nombre_vulgar" string="Nombre Vulgar"/>
+                <field name="nombre_cientifico" string="Nombre Científico"/>
+                <field name="peligrosidad" string="Peligrosidad"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zoo_especie_form_view" model="ir.ui.view">
+        <field name="name">zoo.animal.especie.form</field>
+        <field name="model">zoo.animal.especie</field>
+        <field name="arch" type="xml">
+            <form string="Especie">
+                <sheet>
+                    <group>
+                        <field name="name" string="Especie"/>
+                        <field name="en_peligro" string="En Peligro"/>
+                        <field name="familia" string="Familia"/>
+                        <field name="nombre_vulgar" string="Nombre Vulgar"/>
+                        <field name="nombre_cientifico" string="Nombre Científico"/>
+                        <field name="peligrosidad" string="Peligrosidad"/>
+                        <field name="animal_ids" string="Animales de la misma especie"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
