@@ -3,7 +3,7 @@
     <record id="zoo_action" model="ir.actions.act_window">
         <field name="name">Zoo</field>
         <field name="res_model">zoo.zoo</field>
-        <field name="view_mode">list,form,kanban</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="view_id" ref="zoo_zoo_tree_view"/>
     </record>
 
@@ -79,7 +79,7 @@
 
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="o_kanban_record" style="display: flex; padding: 15px; border: 1px solid #ddd; border-radius: 20px; margin-bottom: 10px;">
+                        <div t-attf-class="oe_kanban_global_click" style="display: flex; padding: 15px; border: 1px solid #ddd; border-radius: 20px; margin-bottom: 10px;">
                             <div style="flex: 0 0 100px; margin-right: 10px;">
                                 <field name="imagen" widget="image"/>
                             </div>

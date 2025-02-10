@@ -91,9 +91,9 @@
                 
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="o_kanban_record" style="padding: 5px; border: 1px solid #ddd; border-radius: 15px; display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <div t-attf-class="oe_kanban_global_click" style="padding: 5px; border: 1px solid #ddd; border-radius: 15px; display: flex; justify-content: space-between; margin-bottom: 5px;">
                             <div style="flex: 0 0 200px; margin-right: 10px; border-radius: 15px;">
-                                <field name="imagen" widget="image" style="max-width: 200px; max-height: 200px; border-radius: 15px;"/>
+                                <field name="imagen" widget="image" style="max-width: 200px; max-height: 200px; border-radius: 30px;"/>
                             </div>
 
                             <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px;">
