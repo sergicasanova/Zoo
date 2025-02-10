@@ -23,16 +23,12 @@ class ZooAnimal(models.Model):
         [('carnivoro', 'Carnívoro'), 
          ('herbivoro', 'Herbívoro'), 
          ('omnivoro', 'Omnívoro')], string='Dieta')
+    imagen = fields.Binary()
+    color = fields.Integer()
     
     zoo_id = fields.Many2one('zoo.zoo', string='Zoo')
     habitat_id = fields.Many2one('zoo.habitat', string='Hábitat')
     especie = fields.Many2one('zoo.animal.especie', string='Especie', required=True)
-
-    # animal estara relacionado con zoo, sera una relacion de uno a muchos, puesto que un
-    # animal podra estar en un zoo, pero un zoo podra tener muchos animales
-    # luego mediante zoo obtendremos el habitat donde estara residiendo dicho animal, es decir
-    # la jirafa tal, esta en el zoo tal y reside en el habitat de la sabana.
-    # hacer un sql-constraint para que la fecha de nacimiento no sea mayor a la fecha actual
 
     _sql_constraints = [
         ('fecha_nacimiento', 'CHECK(fecha_nacimiento <= CURRENT_DATE)', 'La fecha de nacimiento no puede ser mayor a la fecha actual!'),
@@ -48,6 +44,11 @@ class ZooAnimal(models.Model):
             else:
                 animal.edad = 0
 
+    @api.constrains('habitat_id')
+    def _check_zoo_habitat_match(self):
+        for animal in self:
+            if animal.habitat_id and animal.habitat_id.zoo_id != animal.zoo_id:
+                raise models.ValidationError('El hábitat debe pertenecer al mismo zoo que el animal.')
 
     @api.model
     def create(self, vals):

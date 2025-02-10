@@ -11,20 +11,24 @@ class Zoo(models.Model):
     ciudad = fields.Char(string='Ciudad')
     codigo_postal = fields.Char(string='Código Postal')
     cantidad_animales = fields.Integer(string='Cantidad de Animales', compute='_compute_cantidad_animales', store=True)
+    cantidad_animales_en_peligro = fields.Integer(string='Cantidad de Animales en Peligro', compute='_compute_cantidad_animales_en_peligro', store=True)
     zoo_animal_ids = fields.One2many('zoo.animal', 'zoo_id', string='Animales')
     zoo_habitat_ids = fields.One2many('zoo.habitat', 'zoo_id', string='Hábitats')
-
-    # Zoo estara relacionado con animal, donde obtendra el total de animales ademas de sus datos
-    # Tambien estara relacionado con habitat para poder dividir el zoo en diferentes sectores
-    # añadir tags, por ejemplo, eventos que hace el zoo como restaurantes, espectaculos, etc.
-    # añadir un campo imagen para la imagen del zoo
-    # una barra de estado donde indique la cantidad de animales, la cantidad de animales peligrosos o en peligro de extincion
-        
+    tag_ids = fields.Many2many('zoo.tags', 'tag_id', string='Tags')
+    imagen = fields.Binary()
+     
     @api.depends('zoo_animal_ids')
     def _compute_cantidad_animales(self):
         for zoo in self:
             zoo.cantidad_animales = len(zoo.zoo_animal_ids)
     
+    @api.depends('zoo_animal_ids.especie')
+    def _compute_cantidad_animales_en_peligro(self):
+        for zoo in self:
+            zoo.cantidad_animales_en_peligro = len(
+                zoo.zoo_animal_ids.filtered(lambda a: a.especie.en_peligro)
+            )
+
     @api.constrains('cantidad_animales')
     def _check_cantidad_animales(self):
         if self.cantidad_animales < 0:

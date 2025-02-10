@@ -10,6 +10,7 @@
         'views/zoo_animal_views.xml',
         'views/zoo_especie_views.xml',
         'views/zoo_habitat_views.xml',
+        'views/zoo_tags_views.xml',
         'views/zoo_menu.xml',
     ],
 }

@@ -11,7 +11,6 @@ class ZooAnimalEspecie(models.Model):
     nombre_cientifico = fields.Char(string='Nombre Cientifico')
     peligrosidad = fields.Selection(
         [('baja', 'Baja'), ('moderada', 'Moderada'), ('alta', 'Alta'), ('critica', 'Critica')], string='Peligrosidad')
-    # Este estara relacionado con zoo_animal para la obtencion de estos datos genericos de la especie de cada animal
     animal_ids = fields.One2many('zoo.animal', 'especie', string='Animales')
     
     _sql_constraints = [

@@ -9,6 +9,7 @@
         <menuitem id="zoo_settings_menu" name="Settings">
             <menuitem id="zoo_habitat_menu_action" action="zoo_habitat_action" name="Habitat"/>
             <menuitem id="zoo_especie_menu_action" action="zoo_especie_action" name="Especie"/>
+            <menuitem id="zoo_tags_menu_action" action="zoo_tags_action" name="Zoo Tags"/>
         </menuitem>
     </menuitem>
 </odoo>

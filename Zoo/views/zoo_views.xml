@@ -3,7 +3,8 @@
     <record id="zoo_action" model="ir.actions.act_window">
         <field name="name">Zoo</field>
         <field name="res_model">zoo.zoo</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="view_id" ref="zoo_zoo_tree_view"/>
     </record>
 
     <record id="zoo_zoo_tree_view" model="ir.ui.view">
@@ -26,17 +27,99 @@
         <field name="arch" type="xml">
             <form string="Zoo">
                 <sheet>
+                <group>
+                    <field name="imagen" widget="image" style="width: 200px; height: 200px;"/>
+                </group>
+                    <!-- <div name="button_box" position="inside">
+                        <field type="object" icon="fa-paw" name="cantidad_animales"/> 
+                        <field name="cantidad_animales_en_peligro" string="Especies en peligro de extinción:"/>
+                    </div> -->
+                    <h1>
+                        <field name="name" placeholder="Nombre"/>
+                    </h1>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" placeholder="Tags"/>
                     <group>
-                        <field name="name"/>
                         <field name="extension"/>
-                        <field name="pais_id"/>
-                        <field name="provincia_id"/>
-                        <field name="ciudad"/>
-                        <field name="codigo_postal"/>
-                        <field name="cantidad_animales"/>
                     </group>
+                    <notebook>
+                        <page string="Ubicación">
+                            <group>
+                                <field name="pais_id"/>
+                                <field name="provincia_id"/>
+                                <field name="ciudad"/>
+                                <field name="codigo_postal"/> 
+                            </group>
+                            <group>
+                                <field name="cantidad_animales"/> 
+                                <field name="cantidad_animales_en_peligro" string="Especies en peligro de extinción:"/>
+                            </group>
+                        </page>
+                        <page string="Animales">
+                            <field name="zoo_animal_ids" widget="many2many_tags" domain="[('zoo_id', '=', False)]" options="{'color_field': 'color'}"/>
+                            <field name="zoo_animal_ids"/>
+                        </page>
+                        <page string="Habitats">
+                            <field name="zoo_habitat_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+     <record id="zoo_zoo_kanban_view" model="ir.ui.view">
+        <field name="name">zoo.zoo.kanban</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <kanban string="Zoo">
+                <field name="name"/>
+                <field name="pais_id"/>
+                <field name="ciudad"/>
+                <field name="extension"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record" style="display: flex; padding: 15px; border: 1px solid #ddd; border-radius: 20px; margin-bottom: 10px;">
+                            <div style="flex: 0 0 100px; margin-right: 10px;">
+                                <field name="imagen" widget="image"/>
+                            </div>
+
+                            <div style="flex-grow: 1;">
+                                <strong style="font-size: 16px; color: #333;">
+                                    <field name="name"/>
+                                </strong>
+                                <div style="font-size: 14px; color: #777;">
+                                    <field name="pais_id"/> - <field name="ciudad"/>
+                                </div>
+                                <div style="font-size: 12px; color: #555;">
+                                    <field name="extension"/> m²
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="zoo_zoo_view_search" model="ir.ui.view">
+        <field name="name">zoo.zoo.search</field>
+        <field name="model">zoo.zoo</field>
+        <field name="arch" type="xml">
+            <search string="Filtros Zoo">
+                <field name="name" string="Nombre"/>
+                <field name="pais_id" string="Pais"/>
+                <field name="provincia_id" string="Provincia"/>
+                <field name="ciudad" string="Ciudad"/>
+                <field name="cantidad_animales" string="Total de animales"/>
+                <field name="cantidad_animales_en_peligro" string="Total de animales en peligro de extincion"/>
+                <separator/>
+                <filter string="Con animales en peligro" name="in_danger" domain="[('cantidad_animales_en_peligro', '>', 0)]"/>
+                <group expand="1" string="Group By">
+                    <filter name="pais_id" context="{'group_by':'pais_id'}"/>
+                    <filter name="provincia_id" context="{'group_by':'provincia_id'}"/>
+                </group>
+            </search>
         </field>
     </record>
 </odoo>

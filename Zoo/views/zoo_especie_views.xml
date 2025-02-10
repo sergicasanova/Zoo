@@ -40,4 +40,23 @@
             </form>
         </field>
     </record>
+
+    <record id="zoo_especie_search_view" model="ir.ui.view">
+    <field name="name">zoo.animal.especie.search</field>
+    <field name="model">zoo.animal.especie</field>
+    <field name="arch" type="xml">
+        <search string="Filtros Especie">
+            <field name="name" string="Nombre"/>
+            <field name="familia" string="Familia"/>
+            <field name="peligrosidad" string="Peligrosidad"/>
+            <field name="nombre_vulgar" string="Nombre Vulgar"/>
+            <field name="nombre_cientifico" string="Nombre Científico"/>
+            
+            <group expand="1" string="Agrupar por">
+                <filter name="familia" context="{'group_by':'familia'}"/>
+                <filter name="en_peligro" context="{'group_by':'en_peligro'}"/>
+            </group>
+        </search>
+    </field>
+    </record>
 </odoo>

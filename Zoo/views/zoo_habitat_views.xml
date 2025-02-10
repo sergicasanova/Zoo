@@ -12,6 +12,7 @@
         <field name="arch" type="xml">
             <tree string="Habitat">
                 <field name="name" string="Habitat"/>
+                <field name="zoo_id"/>
                 <field name="descripcion"/>
                 <field name="tipo_habitat"/>
                 <field name="capacidad"/>
@@ -31,14 +32,42 @@
                     <group>
                         <field name="name" string="Habitat"/>
                         <field name="descripcion"/>
+                        <field name="zoo_id"/>
                         <field name="tipo_habitat"/>
                         <field name="capacidad"/>
                         <field name="superficie"/>
                         <field name="humedad" widget="float" string="Humedad (%)"/>
                         <field name="temperatura" widget="float" string="Temperatura (°C)"/>
                     </group>
+                    <notebook>
+                        <page string="Animales en el habitad">
+                            <field name="animal_ids" widget="many2many_tags" domain="[('habitat_id', '=', False)]" options="{'color_field': 'color'}" placeholder="Añadir animales"/>
+                            <field name="animal_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+
+    <record id="zoo_habitat_view_search" model="ir.ui.view">
+    <field name="name">zoo.habitat.search</field>
+    <field name="model">zoo.habitat</field>
+    <field name="arch" type="xml">
+        <search string="Filtros Habitat">
+            <field name="name" string="Nombre"/>
+            <field name="tipo_habitat" string="Tipo de hábitat"/>
+            <field name="capacidad" string="Capacidad"/>
+            <field name="superficie" string="Superficie"/>
+            
+            <group expand="1" string="Agrupar por">
+                <filter name="zoo_id" context="{'group_by':'zoo_id'}"/>
+                <filter name="tipo_habitat" context="{'group_by':'tipo_habitat'}"/>
+                <filter name="capacidad" context="{'group_by':'capacidad'}"/>
+                <filter name="superficie" context="{'group_by':'superficie'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
 </odoo>

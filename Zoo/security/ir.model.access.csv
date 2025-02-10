@@ -3,3 +3,4 @@
 "access_zoo_animal","zoo.animal group_user","model_zoo_animal","base.group_user",1,1,1,1
 "access_zoo_animal_especie","zoo.animal.especie group_user","model_zoo_animal_especie","base.group_user",1,1,1,1
 "access_zoo_habitat","zoo.habitat group_user","model_zoo_habitat","base.group_user",1,1,1,1
+"access_zoo_tags","zoo.tags group_user","model_zoo_tags","base.group_user",1,1,1,1

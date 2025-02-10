@@ -3,7 +3,7 @@
     <record id="zoo_animal_action" model="ir.actions.act_window">
         <field name="name">Animal</field>
         <field name="res_model">zoo.animal</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,kanban</field>
     </record>
 
     <record id="zoo_animal_tree_view" model="ir.ui.view">
@@ -12,6 +12,7 @@
         <field name="arch" type="xml">
             <tree string="Animal">
                 <field name="name"/>
+                <field name="zoo_id"/>
                 <field name="raza"/>
                 <field name="especie"/>
                 <field name="continente_origen_animal"/>
@@ -30,23 +31,118 @@
         <field name="arch" type="xml">
             <form string="Animal">
                 <sheet>
-                    <group>
-                        <field name="zoo_id"/>
-                        <field name="name"/>
-                        <field name="raza"/>
-                        <field name="continente_origen_animal"/>
-                        <field name="pais_id"/>
-                        <field name="sexo"/>
-                        <field name="fecha_nacimiento"/>
-                        <field name="edad"/>
-                        <field name="descripcion"/>
-                        <field name="enfermo"/>
-                        <field name="tipo_de_enfermedad"/>
-                        <field name="dieta"/>
-                        <field name="especie"/>
+                    <group style="display: flex; align-items: center;">
+                        <div style="flex: 0 0 200px; margin-right: 15px;">
+                            <field name="imagen" widget="image" style="width: 200px; height: 200px;"/>
+                        </div>
+                        <div>
+                            <h1>
+                                <field name="name" placeholder="Nombre"/>
+                            </h1>
+                        </div>
                     </group>
+                    <group>
+                        <field name="descripcion"/>
+                        <field name="habitat_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Información">
+                            <group>
+                                <field name="raza"/>
+                                <field name="continente_origen_animal"/>
+                                <field name="pais_id"/>
+                                <field name="sexo"/>
+                                <field name="fecha_nacimiento"/>
+                                <field name="edad"/>
+                                <field name="dieta"/>
+                            </group>
+                        </page>
+                        <page string="Zoo donde reside">
+                            <field name="zoo_id"/>
+                        </page>
+                        <page string="Salud">
+                            <group>
+                                <field name="enfermo"/>
+                                <field name="tipo_de_enfermedad"/>
+                            </group>
+                        </page>
+                        <page string="Especie">
+                        <group>
+                            <field name="especie"/>
+                        </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+
+    <record id="zoo_animal_kanban_view" model="ir.ui.view">
+        <field name="name">zoo.animal.kanban</field>
+        <field name="model">zoo.animal</field>
+        <field name="arch" type="xml">
+            <kanban string="Animal">
+                <field name="name"/>
+                <field name="raza"/>
+                <field name="especie"/>
+                <field name="continente_origen_animal"/>
+                <field name="dieta"/>
+                <field name="edad"/>
+                
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record" style="padding: 5px; border: 1px solid #ddd; border-radius: 15px; display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <div style="flex: 0 0 200px; margin-right: 10px; border-radius: 15px;">
+                                <field name="imagen" widget="image" style="max-width: 200px; max-height: 200px; border-radius: 15px;"/>
+                            </div>
+
+                            <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px;">
+                                <strong style="font-size: 16px; color: #333;">
+                                    <field name="name"/>
+                                </strong>
+                                <div style="font-size: 14px; color: #777;">
+                                    <strong>Raza:</strong> <field name="raza"/>
+                                </div>
+                                <div style="font-size: 14px; color: #777;">
+                                    <strong>Especie:</strong> <field name="especie"/>
+                                </div>
+                                <div style="font-size: 14px; color: #777;">
+                                    <strong>Origen:</strong> <field name="continente_origen_animal"/>
+                                </div>
+                                <div style="font-size: 14px; color: #777;">
+                                    <strong>Dieta:</strong> <field name="dieta"/>
+                                </div>
+                                <div style="font-size: 14px; color: #777;">
+                                    <strong>Edad:</strong> <field name="edad"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="zoo_animal_view_search" model="ir.ui.view">
+    <field name="name">zoo.animal.search</field>
+    <field name="model">zoo.animal</field>
+    <field name="arch" type="xml">
+        <search string="Filtros Animal">
+            <field name="name" string="Nombre"/>
+            <field name="raza" string="Raza"/>
+            <field name="especie" string="Especie"/>
+            <field name="dieta" string="Dieta"/>
+            <field name="edad" string="Edad"/>
+            
+            <group expand="1" string="Group By">
+                <filter name="especie" context="{'group_by':'especie'}"/>
+                <filter name="zoo_id" context="{'group_by':'zoo_id'}"/>
+                <filter name="habitat_id" context="{'group_by':'habitat_id'}"/>
+            </group>
+
+            <separator/>
+            <filter string="Animales enfermos" name="enfermo" domain="[('enfermo', '=', True)]"/>
+        </search>
+    </field>
+</record>
 </odoo>

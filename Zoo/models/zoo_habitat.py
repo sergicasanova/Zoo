@@ -19,9 +19,7 @@ class ZooHabitat(models.Model):
     zoo_id = fields.Many2one('zoo.zoo', string='Zoo')
     animal_ids = fields.One2many('zoo.animal', 'habitat_id', string='Animales')
     
-    # habitat lo relacionaremos con zoo, para poder dividir el zoo en diferentes sectores donde residiran los animales,
-    # y para poder identificar el habitat en el que se encuentra el animal
-
     _sql_constraints = [
         ('name_uniq', 'unique(name)', 'El nombre del hábitat debe ser unico!'),
+        ('zoo_habitat_uniq', 'unique(zoo_id, name)', 'El hábitat ya está registrado en otro zoo!')
     ]
