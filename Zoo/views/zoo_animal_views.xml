@@ -7,23 +7,25 @@
     </record>
 
     <record id="zoo_animal_tree_view" model="ir.ui.view">
-        <field name="name">zoo.animal.tree</field>
-        <field name="model">zoo.animal</field>
-        <field name="arch" type="xml">
-            <tree string="Animal">
-                <field name="name"/>
-                <field name="zoo_id"/>
-                <field name="raza"/>
-                <field name="especie"/>
-                <field name="continente_origen_animal"/>
-                <field name="pais_id"/>
-                <field name="sexo"/>
-                <field name="fecha_nacimiento"/>
-                <field name="edad"/>
-                <field name="dieta"/>
-            </tree>
-        </field>
-    </record>
+    <field name="name">zoo.animal.tree</field>
+    <field name="model">zoo.animal</field>
+    <field name="arch" type="xml">
+        <tree string="Animal">
+            <field name="name"/>
+            <field name="zoo_id"/>
+            <field name="raza"/>
+            <field name="especie"/>
+            <field name="continente_origen_animal"/>
+            <field name="pais_id"/>
+            <field name="sexo" widget="badge" decoration-danger="sexo == 'macho'" decoration-info="sexo == 'hembra'"/>
+            <field name="fecha_nacimiento"/>
+            <field name="edad"/>
+            <field name="dieta" widget="badge" decoration-danger="dieta == 'carnivoro'" decoration-success="dieta == 'herbivoro'" decoration-info="dieta == 'omnivoro'"/>
+        </tree>
+    </field>
+</record>
+
+
 
     <record id="zoo_animal_view_form" model="ir.ui.view">
         <field name="name">zoo.animal.form</field>
@@ -58,7 +60,7 @@
                             </group>
                         </page>
                         <page string="Zoo donde reside">
-                            <field name="zoo_id"/>
+                            <field name="zoo_id" placeholder="Seleccionar zoo"/>
                         </page>
                         <page string="Salud">
                             <group>
@@ -91,42 +93,64 @@
 
             <templates>
                 <t t-name="kanban-box">
-                    <div t-attf-class="oe_kanban_global_click" style="padding: 5px; border: 1px solid #ddd; border-radius: 15px; display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        
-                        <div style="flex: 0 0 200px; margin-right: 10px; border-radius: 15px;">
+                    <div t-attf-class="oe_kanban_global_click" class="kanban-card"
+                         style="padding: 15px; border: 1px solid #ddd; border-radius: 20px; display: flex; justify-content: space-between; margin-bottom: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); cursor: pointer;">
+                        <div style="flex: 0 0 200px; margin-right: 15px;">
                             <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
                                 <img alt="Imagen" 
                                      t-att-src="kanban_image('zoo.animal', 'imagen', record.id.raw_value)" 
-                                     style="width: 200px; height: 200px; object-fit: cover; border-radius: 15px;"/>
+                                     style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px;"/>
                             </div>
                         </div>
 
-                        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px;">
-                            <strong style="font-size: 16px; color: #333;">
+                        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                            <strong style="font-size: 18px; color: #333; font-weight: bold;">
                                 <field name="name"/>
                             </strong>
-                            <div style="font-size: 14px; color: #777;">
+                            
+
+                            <div style="font-size: 14px; color: #555; margin-top: 10px;">
                                 <strong>Raza:</strong> <field name="raza"/>
                             </div>
-                            <div style="font-size: 14px; color: #777;">
+                            <div style="font-size: 14px; color: #555;">
                                 <strong>Especie:</strong> <field name="especie"/>
                             </div>
-                            <div style="font-size: 14px; color: #777;">
+                            <div style="font-size: 14px; color: #555;">
                                 <strong>Origen:</strong> <field name="continente_origen_animal"/>
                             </div>
-                            <div style="font-size: 14px; color: #777;">
-                                <strong>Dieta:</strong> <field name="dieta"/>
+                            <div style="font-size: 14px; color: #555;">
+                                <field name="dieta" widget="badge" decoration-danger="dieta == 'carnivoro'" decoration-success="dieta == 'herbivoro'" decoration-info="dieta == 'omnivoro'"/>
                             </div>
-                            <div style="font-size: 14px; color: #777;">
+                            <div style="font-size: 14px; color: #555;">
                                 <strong>Edad:</strong> <field name="edad"/>
                             </div>
                         </div>
                     </div>
+                <style>
+                    .kanban-card {
+                        transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    }
+
+                    .kanban-card:hover {
+                        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+                        transform: translateY(-5px);
+                    }
+
+                    .kanban-card:hover img {
+                        transform: none;
+                    }
+                </style>
                 </t>
             </templates>
         </kanban>
     </field>
 </record>
+
+
+
+
+
+
 
 
     <record id="zoo_animal_view_search" model="ir.ui.view">

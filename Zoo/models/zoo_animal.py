@@ -49,6 +49,12 @@ class ZooAnimal(models.Model):
         for animal in self:
             if animal.habitat_id and animal.habitat_id.zoo_id != animal.zoo_id:
                 raise models.ValidationError('El hábitat debe pertenecer al mismo zoo que el animal.')
+            
+    @api.constrains('habitat_id')
+    def _check_habitat_capacity(self):
+        for animal in self:
+            if animal.habitat_id and animal.habitat_id.is_full:
+                raise models.ValidationError('El hábitat ya está lleno, no se pueden agregar más animales.')
 
     @api.model
     def create(self, vals):

@@ -30,10 +30,6 @@
                 <group>
                     <field name="imagen" widget="image" style="width: 200px; height: 200px;"/>
                 </group>
-                    <!-- <div name="button_box" position="inside">
-                        <field type="object" icon="fa-paw" name="cantidad_animales"/> 
-                        <field name="cantidad_animales_en_peligro" string="Especies en peligro de extinción:"/>
-                    </div> -->
                     <h1>
                         <field name="name" placeholder="Nombre"/>
                     </h1>
@@ -55,7 +51,7 @@
                             </group>
                         </page>
                         <page string="Animales">
-                            <field name="zoo_animal_ids" widget="many2many_tags" domain="[('zoo_id', '=', False)]" options="{'color_field': 'color'}"/>
+                            <field name="zoo_animal_ids" widget="many2many_tags" domain="[('zoo_id', '=', False)]" options="{'color_field': 'color'}" placeholder="Introducir animal"/>
                             <field name="zoo_animal_ids"/>
                         </page>
                         <page string="Habitats">
@@ -79,7 +75,7 @@
 
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click" style="display: flex; padding: 15px; border: 1px solid #ddd; border-radius: 20px; margin-bottom: 10px;">
+                        <div t-attf-class="oe_kanban_global_click kanban-card" style="display: flex; padding: 15px; border: 1px solid #ddd; cursor: pointer; border-radius: 20px; margin-bottom: 10px;">
                             <div style="flex: 0 0 100px; margin-right: 10px;">
                                 <field name="imagen" widget="image"/>
                             </div>
@@ -96,6 +92,20 @@
                                 </div>
                             </div>
                         </div>
+                        <style>
+                        .kanban-card {
+                            transition: transform 0.2s ease, box-shadow 0.2s ease;
+                        }
+
+                        .kanban-card:hover {
+                            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+                            transform: translateY(-5px);
+                        }
+
+                        .kanban-card:hover img {
+                            transform: none;
+                        }
+                        </style>
                     </t>
                 </templates>
             </kanban>
